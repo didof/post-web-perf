@@ -21,14 +21,13 @@ let template = `<!DOCTYPE html>
     <meta charset="UTF-8" />
     <title>Very big file</title>
     <style>html { margin: 0; } img { width: 100%; }</style>
-    <script>
-      const start = new Date().getTime();
-      document.addEventListener('DOMContentLoaded', () => alert("DOMContentLoaded " + (new Date().getTime() - start) + " milliseconds."));
-    </script>
   </head>
   <body>
     <a href="https://pixabay.com/photos/chicken-farm-yard-face-comb-8225658/">Pic source</a>
+    <input type="text" autofocus>
 `;
+
+const cap = `</body></html>`;
 
 (async () => {
   const buffer = await readFile(resolve(root, "assets", "chicken.jpg"));
@@ -38,7 +37,7 @@ let template = `<!DOCTYPE html>
   for (let i = 0; i < Number(imgAmount); i++) {
     template += img;
   }
-  const html = template.concat("</body></html>");
+  const html = template.concat(cap);
 
   const out = resolve(root, "views", "index.html");
   await writeFile(out, html, { encoding: "utf-8" });
